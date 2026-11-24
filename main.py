@@ -35,6 +35,13 @@ def validate(text):
         raise ValueError("entry has leading or trailing whitespace")
     if "\n" in text or "\r" in text:
         raise ValueError("entry must be a single line")
+    # A texted excuse has no control characters: reject tabs and other
+    # invisible control codes the gate's "UTF-8 text" would still allow.
+    for ch in text:
+        if ord(ch) < 32 and ch not in ("\n", "\r"):
+            raise ValueError(
+                f"entry contains a control character U+{ord(ch):04X}"
+            )
     return text
 
 
@@ -45,6 +52,8 @@ def self_test():
         (" ", "whitespace-only"),
         ("x" * 201, "201 chars"),
         ("a\nb", "multi-line"),
+        ("a\tb", "tab control character"),
+        ("a\x01b", "control character"),
         ("trailing ", "trailing whitespace"),
         (" leading", "leading whitespace"),
         (" padded ", "padded both sides"),
