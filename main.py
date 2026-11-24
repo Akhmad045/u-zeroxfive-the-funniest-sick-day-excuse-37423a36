@@ -94,7 +94,9 @@ def main():
         roundtrip = fh.read()
     if roundtrip != data:
         raise SystemExit("round-trip mismatch: file does not match entry")
-    print(f"wrote {out_path}: {len(text)} chars, "
+    # Report both counts: the gate counts characters, the leaderboard's
+    # Size column counts bytes, and the two differ on non-ASCII text.
+    print(f"wrote {out_path}: {len(text)} chars, {len(data)} bytes, "
           f"sha256 {hashlib.sha256(data).hexdigest()}")
     return 0
 

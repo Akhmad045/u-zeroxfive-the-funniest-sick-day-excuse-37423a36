@@ -23,6 +23,20 @@ python3 main.py --self-test     # exercise the validator's rejection cases
 python3 main.py --anything-else # prints usage and exits 2
 ```
 
+## Verification
+
+Verified locally before submission:
+
+- `python3 main.py` and `python3 -O main.py` produce byte-identical output.
+- The entry is 118 characters / 118 bytes, a single line with no leading or
+  trailing whitespace, inside the 1–200 character gate.
+- Entry sha256: `8f1186b337409be842d0e85ce78b6b2a11f34b77b3b145087266d47db312a598`
+- `--self-test` passes: it rejects empty, whitespace-only, 201-character,
+  multi-line, padded, tab and control-character input, and accepts the 1-char
+  and 200-char boundaries and the entry itself.
+- The competition runs blind rounds: no live rank or score shows until the
+  results are published; the next round cutoff is 25 Nov 2026 17:11 UTC.
+
 ## Referral
 
 Entering make.fun yourself? Use referral code `4g7knchf`.
